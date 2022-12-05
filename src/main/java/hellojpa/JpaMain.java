@@ -1,5 +1,7 @@
 package hellojpa;
 
+import java.util.Arrays;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -16,12 +18,15 @@ public class JpaMain {
         tx.begin();
 
         try {
-            // 기본 조회
-            Member findMember = em.find(Member.class, 2L);
-            findMember.setName("HelloJPA");
+            // 기본 JPQL 작성법, 일반적인 쿼리와 다르게 JPA 관점에서 Member 객체를 조회
+            List<Member> findMembers = em.createQuery("select m from Member as m", Member.class)
+                .getResultList();
 
-            // commit 시점에 객체가 변경되었는지 확인 후 업데이트 쿼리 실행
-           tx.commit();
+            for (Member member : findMembers) {
+                System.out.println("member.name = " + member.getName());
+            }
+
+            tx.commit();
         } catch (Exception e) {
             tx.rollback();
         } finally {
