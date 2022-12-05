@@ -18,13 +18,18 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member(3L, "HelloC");
-            System.out.println("객체 생성 후, 비영속상태");
-            em.persist(member);
-            System.out.println("객체 저장 후, 영속상태");
-            tx.commit();
-            System.out.println("트랜잭션 커밋 후");
+            // 1차 캐시 : 한 트랜잭션 안에서만 저장되는 캐시기 때문에 성능에 큰 도움은 안된다
+            // 1차 캐시 저장 전, DB에서 조회해서 1차 캐시에 저장
+            Member memberBefore = em.find(Member.class, 1L);
+            System.out.println("member.name = " + memberBefore.getName());
 
+            // 1차 캐시 저장 후, 1차 캐시에서 찾아서 반환
+            Member memberAfter = em.find(Member.class, 1L);
+            System.out.println("member.name = " + memberAfter.getName());
+
+            // 1차 캐시 저장 전, DB에서 조회해서 1차 캐시에 저장
+            Member memberOther = em.find(Member.class, 2L);
+            System.out.println("member.name = " + memberOther.getName());
         } catch (Exception e) {
             tx.rollback();
         } finally {
