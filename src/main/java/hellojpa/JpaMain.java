@@ -30,6 +30,22 @@ public class JpaMain {
             // 1차 캐시 저장 전, DB에서 조회해서 1차 캐시에 저장
             Member memberOther = em.find(Member.class, 2L);
             System.out.println("member.name = " + memberOther.getName());
+
+            // 비영속 상태, 객체 생성
+            Member member = new Member(4L, "HelloD");
+
+            // 영속 상태, 컨텍스트에 저장 & 1차 캐시에 저장
+            em.persist(member);
+
+            // 1차 캐시에서 조회 후 반환함
+            Member memberNew = em.find(Member.class, 4L);
+
+            System.out.println("new member.id = " + memberNew.getId());
+            System.out.println("new member.name = " + memberNew.getName());
+
+            // 커밋 시 저장 쿼리 실행 됨
+            tx.commit();
+
         } catch (Exception e) {
             tx.rollback();
         } finally {
