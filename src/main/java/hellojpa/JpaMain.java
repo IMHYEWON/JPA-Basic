@@ -17,13 +17,11 @@ public class JpaMain {
 
         try {
             // 기본 조회
-            Member findMember = em.find(Member.class, 1L);
-            System.out.println("findMember.id" + findMember.getId());
-            System.out.println("findMember.name" + findMember.getName());
+            Member findMember = em.find(Member.class, 2L);
+            findMember.setName("HelloJPA");
 
-            // 삭제
-            em.remove(findMember);
-            tx.commit();
+            // commit 시점에 객체가 변경되었는지 확인 후 업데이트 쿼리 실행
+           tx.commit();
         } catch (Exception e) {
             tx.rollback();
         } finally {
