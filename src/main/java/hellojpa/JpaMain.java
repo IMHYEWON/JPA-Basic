@@ -18,17 +18,13 @@ public class JpaMain {
         tx.begin();
 
         try {
-            // 기본 JPQL 작성법, 일반적인 쿼리와 다르게 JPA 관점에서 Member 객체를 조회
-            List<Member> findMembers = em.createQuery("select m from Member as m", Member.class)
-                // 조회된 결과의 1~10 / offset, limit 설정
-                .setFirstResult(1)
-                .setMaxResults(10)
-                .getResultList();
-            for (Member member : findMembers) {
-                System.out.println("member.name = " + member.getName());
-            }
-
+            Member member = new Member(3L, "HelloC");
+            System.out.println("객체 생성 후, 비영속상태");
+            em.persist(member);
+            System.out.println("객체 저장 후, 영속상태");
             tx.commit();
+            System.out.println("트랜잭션 커밋 후");
+
         } catch (Exception e) {
             tx.rollback();
         } finally {
