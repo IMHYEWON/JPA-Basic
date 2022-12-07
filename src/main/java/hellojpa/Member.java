@@ -31,7 +31,8 @@ public class Member {
     private Integer age;
 
     // Enum 타입 매핑
-    // EnumType.ORDINAL : enum 순서를 DB에 저장 (Default)
+    // EnumType.ORDINAL : enum 순서(숫자형)를 DB에 저장 (Default)
+    // => 사용 지양!!! (순서가 바뀔 수 있으므로)
     // EnumType.STRING : enum 이름을 DB에 저장
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
@@ -67,11 +68,59 @@ public class Member {
         this.name = name;
     }
 
-    public Member(Long id) {
-        this.id = id;
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public RoleType getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getTemp() {
+        return temp;
+    }
+
+    public void setTemp(int temp) {
+        this.temp = temp;
     }
 
     public Member() {
+    }
+
+    public Member(Long id) {
+        this.id = id;
     }
 
     public Member(Long id, String name) {
