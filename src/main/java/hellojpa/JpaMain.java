@@ -31,6 +31,7 @@ public class JpaMain {
 
             // Sequence 전략 사용시 시퀀스 호출 'call next value for MEMBER_SEQ'
             // MEMBER_SEQ를 호출해서 영속성 컨텍스트에 저장
+            // * allocation Size를 50으로 설정했기 때문에 시퀀스 쿼리는 한번만 호출
             em.persist(user);
 
             // 1차캐시에 저장된 ID (SEQ)
@@ -51,6 +52,9 @@ public class JpaMain {
             em.persist(user3);  // seq 호출
             System.out.println("USER ID : " + user3.getId());
 
+            for (int i = 0; i < 10; i++) {
+                em.persist(new Member());
+            }
 
             // Sequence 전략 사용시 트랜잭션 실행 시점
             // SEQ 호출해서 저장된 ID를 사용해 저장
