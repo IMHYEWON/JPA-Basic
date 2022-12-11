@@ -1,5 +1,6 @@
 package jpashop;
 
+import java.util.List;
 import java.time.LocalDate;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -29,6 +30,23 @@ public class JpaMain {
         user.setStreet("93");
         user.setTeam(team);
         em.persist(user);
+        Long tempUserId = user.getId();
+
+        Member user2 = new Member();
+        user2.setCity("NEWYORK");
+        user2.setTeam(team);
+        em.persist(user2);
+
+        em.flush();
+        em.clear();
+        //// TEAM - MEMBER 양방향 연관관계 매핑
+        Member member = em.find(Member.class, tempUserId);
+        List<Member> members = member.getTeam().getMembers();
+        System.out.println("MEMBER TEAM NAME : " + member.getTeam().getName());
+
+        for (Member m : members) {
+            System.out.println("Member of Teams : " + m.getId());
+        }
 
         Item book = new Item("BOOK", 30000, 530);
         em.persist(book);
@@ -63,7 +81,6 @@ public class JpaMain {
             Member member = em.find(Member.class, memberId);
             System.out.println("MEMBER CITY : " + member.getCity());
 
-            // => 객체 그래프 탐색의 어려움
 
         } catch (Exception e) {
             tx.rollback();
