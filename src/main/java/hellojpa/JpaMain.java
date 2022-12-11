@@ -27,7 +27,7 @@ public class JpaMain {
 			//그런데 영속성 컨텍스트에서 객체를 관리하려면, PK값이 있어야됨 (1차캐시에 저장하기 위해서는)
 			///-> 그래서 이 경우에, (커밋 시점이 아닌) em.persist()시점에서 insert 쿼리를 호출한다
 
-            Member user = new Member(5L);
+            Member user = new Member();
             user.setName("USER");
             user.setAge(25);
             user.setRoleType(RoleType.USER);
