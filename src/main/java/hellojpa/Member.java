@@ -9,20 +9,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
+@SequenceGenerator(
+    name = "MEMBER_SEQ_GENERATOR",
+    sequenceName = "MEMBER_SEQ",
+    initialValue = 1, allocationSize = 50
+)
 public class Member {
 
     @Id
-	// 식별자 전략 (1) Identity 전략
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    // 식별자 전략 (2) Sequence 전략
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+        generator = "MEMBER_SEQ_GENERATOR")
     private Long id;
 
-//    @Column(insertable = true   //등록 가능 여부 (default = true)
+    //    @Column(insertable = true   //등록 가능 여부 (default = true)
 //        , updatable = false     //변경 가능 여부
 //        , nullable = false      //null값 허용 여부
 //        , unique = true       //유니크 제약조건 여부, @Table에서도 설정 가능
