@@ -16,6 +16,8 @@ import javax.persistence.Transient;
 public class Member {
 
     @Id
+	// 식별자 전략 (1) Identity 전략
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 //    @Column(insertable = true   //등록 가능 여부 (default = true)
