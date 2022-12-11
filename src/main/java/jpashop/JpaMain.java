@@ -10,6 +10,7 @@ import jpashop.domain.Item;
 import jpashop.domain.Member;
 import jpashop.domain.Order;
 import jpashop.domain.OrderItem;
+import jpashop.domain.Team;
 
 public class JpaMain {
 
@@ -19,9 +20,14 @@ public class JpaMain {
 
     private static void setData() {
 
+        Team team = new Team();
+        team.setName("TEAM A");
+        em.persist(team);
+
         Member user = new Member();
         user.setCity("SEOUL");
         user.setStreet("93");
+        user.setTeam(team);
         em.persist(user);
 
         Item book = new Item("BOOK", 30000, 530);
