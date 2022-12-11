@@ -3,13 +3,13 @@ package jpashop.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Member {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEMBER_ID")
     private Long id;
     private String city;
@@ -17,6 +17,13 @@ public class Member {
     private String zipcode;
 
     public Member() {
+    }
+
+    public Member(Long id, String city, String street, String zipcode) {
+        this.id = id;
+        this.city = city;
+        this.street = street;
+        this.zipcode = zipcode;
     }
 
     public Long getId() {

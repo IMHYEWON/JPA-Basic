@@ -15,7 +15,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+<<<<<<< HEAD
 //@Entity
+=======
+@Entity
+@SequenceGenerator(
+    name = "MEMBER_SEQ_GENERATOR",
+    sequenceName = "MEMBER_SEQ",
+    initialValue = 1, allocationSize = 50
+)
+>>>>>>> 12ca6d729efef8d889430085f5f399d838810444
 public class Member {
 
     @Id

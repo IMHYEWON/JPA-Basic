@@ -1,11 +1,12 @@
 package jpashop.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import jpashop.domain.Enum.OrderStatus;
@@ -14,19 +15,25 @@ import jpashop.domain.Enum.OrderStatus;
 @Table(name = "ORDERS")
 public class Order {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ORDER_ID")
     private Long id;
 
     @Column(name = "MEMBER_ID")
     private Long memberId;
 
-    private LocalDateTime orderDate;
+    private LocalDate orderDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
     public Order() {
+    }
+
+    public Order(Long memberId, LocalDate orderDate, OrderStatus status) {
+        this.memberId = memberId;
+        this.orderDate = orderDate;
+        this.status = status;
     }
 
     public Long getId() {
@@ -45,11 +52,11 @@ public class Order {
         this.memberId = memberId;
     }
 
-    public LocalDateTime getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 

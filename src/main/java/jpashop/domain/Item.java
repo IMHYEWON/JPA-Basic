@@ -3,13 +3,13 @@ package jpashop.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Item {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ITEM_ID")
     private Long id;
     private String name;
@@ -17,6 +17,12 @@ public class Item {
     private Integer stockQuantity;
 
     public Item() {
+    }
+
+    public Item(String name, Integer price, Integer stockQuantity) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
     }
 
     public Long getId() {
